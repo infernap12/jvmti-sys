@@ -1,0 +1,8 @@
+[package]
+name = "jvmti-sys"
+version = "0.1.0"
+edition = "2024"
+publish = ["nexus"]
+
+[dependencies]
+jni-sys = { git = "https://github.com/infernap12/jni-sys", branch = "from0.3" }
