@@ -524,14 +524,14 @@ pub enum jvmtiEvent {
 	JVMTI_EVENT_VIRTUAL_THREAD_END = 88,
 }
 pub type jvmtiStartFunction = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		arg: *mut ::std::os::raw::c_void,
 	),
 >;
 pub type jvmtiHeapIterationCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		class_tag: jlong,
 		size: jlong,
 		tag_ptr: *mut jlong,
@@ -540,7 +540,7 @@ pub type jvmtiHeapIterationCallback = ::std::option::Option<
 	) -> jint,
 >;
 pub type jvmtiHeapReferenceCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		reference_kind: jvmtiHeapReferenceKind,
 		reference_info: *const jvmtiHeapReferenceInfo,
 		class_tag: jlong,
@@ -553,7 +553,7 @@ pub type jvmtiHeapReferenceCallback = ::std::option::Option<
 	) -> jint,
 >;
 pub type jvmtiPrimitiveFieldCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		kind: jvmtiHeapReferenceKind,
 		info: *const jvmtiHeapReferenceInfo,
 		object_class_tag: jlong,
@@ -564,7 +564,7 @@ pub type jvmtiPrimitiveFieldCallback = ::std::option::Option<
 	) -> jint,
 >;
 pub type jvmtiArrayPrimitiveValueCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		class_tag: jlong,
 		size: jlong,
 		tag_ptr: *mut jlong,
@@ -575,7 +575,7 @@ pub type jvmtiArrayPrimitiveValueCallback = ::std::option::Option<
 	) -> jint,
 >;
 pub type jvmtiStringPrimitiveValueCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		class_tag: jlong,
 		size: jlong,
 		tag_ptr: *mut jlong,
@@ -584,9 +584,9 @@ pub type jvmtiStringPrimitiveValueCallback = ::std::option::Option<
 		user_data: *mut ::std::os::raw::c_void,
 	) -> jint,
 >;
-pub type jvmtiReservedCallback = ::std::option::Option<unsafe extern "C" fn() -> jint>;
+pub type jvmtiReservedCallback = ::std::option::Option<unsafe extern "system" fn() -> jint>;
 pub type jvmtiHeapObjectCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		class_tag: jlong,
 		size: jlong,
 		tag_ptr: *mut jlong,
@@ -594,7 +594,7 @@ pub type jvmtiHeapObjectCallback = ::std::option::Option<
 	) -> jvmtiIterationControl,
 >;
 pub type jvmtiHeapRootCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		root_kind: jvmtiHeapRootKind,
 		class_tag: jlong,
 		size: jlong,
@@ -603,7 +603,7 @@ pub type jvmtiHeapRootCallback = ::std::option::Option<
 	) -> jvmtiIterationControl,
 >;
 pub type jvmtiStackReferenceCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		root_kind: jvmtiHeapRootKind,
 		class_tag: jlong,
 		size: jlong,
@@ -616,7 +616,7 @@ pub type jvmtiStackReferenceCallback = ::std::option::Option<
 	) -> jvmtiIterationControl,
 >;
 pub type jvmtiObjectReferenceCallback = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		reference_kind: jvmtiObjectReferenceKind,
 		class_tag: jlong,
 		size: jlong,
@@ -2678,9 +2678,9 @@ impl jvmtiCapabilities {
 		__bindgen_bitfield_unit
 	}
 }
-pub type jvmtiEventReserved = ::std::option::Option<unsafe extern "C" fn()>;
+pub type jvmtiEventReserved = ::std::option::Option<unsafe extern "system" fn()>;
 pub type jvmtiEventBreakpoint = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2689,7 +2689,7 @@ pub type jvmtiEventBreakpoint = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventClassFileLoadHook = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		class_being_redefined: jclass,
@@ -2703,7 +2703,7 @@ pub type jvmtiEventClassFileLoadHook = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventClassLoad = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2711,7 +2711,7 @@ pub type jvmtiEventClassLoad = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventClassPrepare = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2719,7 +2719,7 @@ pub type jvmtiEventClassPrepare = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventCompiledMethodLoad = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		method: jmethodID,
 		code_size: jint,
@@ -2730,16 +2730,16 @@ pub type jvmtiEventCompiledMethodLoad = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventCompiledMethodUnload = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		method: jmethodID,
 		code_addr: *const ::std::os::raw::c_void,
 	),
 >;
 pub type jvmtiEventDataDumpRequest =
-	::std::option::Option<unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv)>;
+	::std::option::Option<unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv)>;
 pub type jvmtiEventDynamicCodeGenerated = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		name: *const ::std::os::raw::c_char,
 		address: *const ::std::os::raw::c_void,
@@ -2747,7 +2747,7 @@ pub type jvmtiEventDynamicCodeGenerated = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventException = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2759,7 +2759,7 @@ pub type jvmtiEventException = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventExceptionCatch = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2769,7 +2769,7 @@ pub type jvmtiEventExceptionCatch = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventFieldAccess = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2781,7 +2781,7 @@ pub type jvmtiEventFieldAccess = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventFieldModification = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2795,7 +2795,7 @@ pub type jvmtiEventFieldModification = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventFramePop = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2804,11 +2804,11 @@ pub type jvmtiEventFramePop = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventGarbageCollectionFinish =
-	::std::option::Option<unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv)>;
+	::std::option::Option<unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv)>;
 pub type jvmtiEventGarbageCollectionStart =
-	::std::option::Option<unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv)>;
+	::std::option::Option<unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv)>;
 pub type jvmtiEventMethodEntry = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2816,7 +2816,7 @@ pub type jvmtiEventMethodEntry = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventMethodExit = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2826,7 +2826,7 @@ pub type jvmtiEventMethodExit = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventMonitorContendedEnter = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2834,7 +2834,7 @@ pub type jvmtiEventMonitorContendedEnter = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventMonitorContendedEntered = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2842,7 +2842,7 @@ pub type jvmtiEventMonitorContendedEntered = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventMonitorWait = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2851,7 +2851,7 @@ pub type jvmtiEventMonitorWait = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventMonitorWaited = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2860,7 +2860,7 @@ pub type jvmtiEventMonitorWaited = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventNativeMethodBind = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2870,9 +2870,9 @@ pub type jvmtiEventNativeMethodBind = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventObjectFree =
-	::std::option::Option<unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, tag: jlong)>;
+	::std::option::Option<unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, tag: jlong)>;
 pub type jvmtiEventResourceExhausted = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		flags: jint,
@@ -2881,7 +2881,7 @@ pub type jvmtiEventResourceExhausted = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventSampledObjectAlloc = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2891,7 +2891,7 @@ pub type jvmtiEventSampledObjectAlloc = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventSingleStep = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2900,24 +2900,24 @@ pub type jvmtiEventSingleStep = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventThreadEnd = ::std::option::Option<
-	unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, thread: jthread),
+	unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, thread: jthread),
 >;
 pub type jvmtiEventThreadStart = ::std::option::Option<
-	unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, thread: jthread),
+	unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, thread: jthread),
 >;
 pub type jvmtiEventVirtualThreadEnd = ::std::option::Option<
-	unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, virtual_thread: jthread),
+	unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, virtual_thread: jthread),
 >;
 pub type jvmtiEventVirtualThreadStart = ::std::option::Option<
-	unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, virtual_thread: jthread),
+	unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, virtual_thread: jthread),
 >;
 pub type jvmtiEventVMDeath =
-	::std::option::Option<unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv)>;
+	::std::option::Option<unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv)>;
 pub type jvmtiEventVMInit = ::std::option::Option<
-	unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, thread: jthread),
+	unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv, thread: jthread),
 >;
 pub type jvmtiEventVMObjectAlloc = ::std::option::Option<
-	unsafe extern "C" fn(
+	unsafe extern "system" fn(
 		jvmti_env: *mut jvmtiEnv,
 		jni_env: *mut JNIEnv,
 		thread: jthread,
@@ -2927,7 +2927,7 @@ pub type jvmtiEventVMObjectAlloc = ::std::option::Option<
 	),
 >;
 pub type jvmtiEventVMStart =
-	::std::option::Option<unsafe extern "C" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv)>;
+	::std::option::Option<unsafe extern "system" fn(jvmti_env: *mut jvmtiEnv, jni_env: *mut JNIEnv)>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct jvmtiEventCallbacks {
@@ -2985,40 +2985,40 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetAllModules: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			module_count_ptr: *mut jint,
 			modules_ptr: *mut *mut jobject,
 		) -> jvmtiError,
 	>,
 	pub GetAllThreads: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			threads_count_ptr: *mut jint,
 			threads_ptr: *mut *mut jthread,
 		) -> jvmtiError,
 	>,
 	pub SuspendThread: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
 	>,
 	pub ResumeThread: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
 	>,
 	pub StopThread: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread, exception: jobject) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread, exception: jobject) -> jvmtiError,
 	>,
 	pub InterruptThread: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
 	>,
 	pub GetThreadInfo: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			info_ptr: *mut jvmtiThreadInfo,
 		) -> jvmtiError,
 	>,
 	pub GetOwnedMonitorInfo: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			owned_monitor_count_ptr: *mut jint,
@@ -3026,14 +3026,14 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetCurrentContendedMonitor: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			monitor_ptr: *mut jobject,
 		) -> jvmtiError,
 	>,
 	pub RunAgentThread: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			proc_: jvmtiStartFunction,
@@ -3042,21 +3042,21 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetTopThreadGroups: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			group_count_ptr: *mut jint,
 			groups_ptr: *mut *mut jthreadGroup,
 		) -> jvmtiError,
 	>,
 	pub GetThreadGroupInfo: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			group: jthreadGroup,
 			info_ptr: *mut jvmtiThreadGroupInfo,
 		) -> jvmtiError,
 	>,
 	pub GetThreadGroupChildren: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			group: jthreadGroup,
 			thread_count_ptr: *mut jint,
@@ -3066,24 +3066,24 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetFrameCount: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			count_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub GetThreadState: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			thread_state_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub GetCurrentThread: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread_ptr: *mut jthread) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread_ptr: *mut jthread) -> jvmtiError,
 	>,
 	pub GetFrameLocation: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3092,10 +3092,10 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub NotifyFramePop: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread, depth: jint) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread, depth: jint) -> jvmtiError,
 	>,
 	pub GetLocalObject: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3104,7 +3104,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetLocalInt: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3113,7 +3113,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetLocalLong: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3122,7 +3122,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetLocalFloat: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3131,7 +3131,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetLocalDouble: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3140,7 +3140,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetLocalObject: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3149,7 +3149,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetLocalInt: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3158,7 +3158,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetLocalLong: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3167,7 +3167,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetLocalFloat: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3176,7 +3176,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetLocalDouble: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3185,50 +3185,50 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub CreateRawMonitor: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			name: *const ::std::os::raw::c_char,
 			monitor_ptr: *mut jrawMonitorID,
 		) -> jvmtiError,
 	>,
 	pub DestroyRawMonitor: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
 	>,
 	pub RawMonitorEnter: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
 	>,
 	pub RawMonitorExit: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
 	>,
 	pub RawMonitorWait: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			monitor: jrawMonitorID,
 			millis: jlong,
 		) -> jvmtiError,
 	>,
 	pub RawMonitorNotify: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
 	>,
 	pub RawMonitorNotifyAll: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, monitor: jrawMonitorID) -> jvmtiError,
 	>,
 	pub SetBreakpoint: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			location: jlocation,
 		) -> jvmtiError,
 	>,
 	pub ClearBreakpoint: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			location: jlocation,
 		) -> jvmtiError,
 	>,
 	pub GetNamedModule: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			class_loader: jobject,
 			package_name: *const ::std::os::raw::c_char,
@@ -3236,36 +3236,36 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetFieldAccessWatch: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
 	>,
 	pub ClearFieldAccessWatch: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
 	>,
 	pub SetFieldModificationWatch: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
 	>,
 	pub ClearFieldModificationWatch: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, klass: jclass, field: jfieldID) -> jvmtiError,
 	>,
 	pub IsModifiableClass: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			is_modifiable_class_ptr: *mut jboolean,
 		) -> jvmtiError,
 	>,
 	pub Allocate: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			size: jlong,
 			mem_ptr: *mut *mut ::std::os::raw::c_uchar,
 		) -> jvmtiError,
 	>,
 	pub Deallocate: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, mem: *mut ::std::os::raw::c_uchar) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, mem: *mut ::std::os::raw::c_uchar) -> jvmtiError,
 	>,
 	pub GetClassSignature: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			signature_ptr: *mut *mut ::std::os::raw::c_char,
@@ -3273,28 +3273,28 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetClassStatus: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			status_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub GetSourceFileName: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			source_name_ptr: *mut *mut ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub GetClassModifiers: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			modifiers_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub GetClassMethods: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			method_count_ptr: *mut jint,
@@ -3302,7 +3302,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetClassFields: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			field_count_ptr: *mut jint,
@@ -3310,7 +3310,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetImplementedInterfaces: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			interface_count_ptr: *mut jint,
@@ -3318,42 +3318,42 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IsInterface: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			is_interface_ptr: *mut jboolean,
 		) -> jvmtiError,
 	>,
 	pub IsArrayClass: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			is_array_class_ptr: *mut jboolean,
 		) -> jvmtiError,
 	>,
 	pub GetClassLoader: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			classloader_ptr: *mut jobject,
 		) -> jvmtiError,
 	>,
 	pub GetObjectHashCode: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			object: jobject,
 			hash_code_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub GetObjectMonitorUsage: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			object: jobject,
 			info_ptr: *mut jvmtiMonitorUsage,
 		) -> jvmtiError,
 	>,
 	pub GetFieldName: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			field: jfieldID,
@@ -3363,7 +3363,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetFieldDeclaringClass: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			field: jfieldID,
@@ -3371,7 +3371,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetFieldModifiers: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			field: jfieldID,
@@ -3379,7 +3379,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IsFieldSynthetic: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			field: jfieldID,
@@ -3387,7 +3387,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetMethodName: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			name_ptr: *mut *mut ::std::os::raw::c_char,
@@ -3396,38 +3396,38 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetMethodDeclaringClass: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			declaring_class_ptr: *mut jclass,
 		) -> jvmtiError,
 	>,
 	pub GetMethodModifiers: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			modifiers_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub ClearAllFramePops: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
 	>,
 	pub GetMaxLocals: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			max_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub GetArgumentsSize: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			size_ptr: *mut jint,
 		) -> jvmtiError,
 	>,
 	pub GetLineNumberTable: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			entry_count_ptr: *mut jint,
@@ -3435,7 +3435,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetMethodLocation: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			start_location_ptr: *mut jlocation,
@@ -3443,7 +3443,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetLocalVariableTable: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			entry_count_ptr: *mut jint,
@@ -3451,20 +3451,20 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetNativeMethodPrefix: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			prefix: *const ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub SetNativeMethodPrefixes: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			prefix_count: jint,
 			prefixes: *mut *mut ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub GetBytecodes: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			bytecode_count_ptr: *mut jint,
@@ -3472,28 +3472,28 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IsMethodNative: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			is_native_ptr: *mut jboolean,
 		) -> jvmtiError,
 	>,
 	pub IsMethodSynthetic: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			is_synthetic_ptr: *mut jboolean,
 		) -> jvmtiError,
 	>,
 	pub GetLoadedClasses: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			class_count_ptr: *mut jint,
 			classes_ptr: *mut *mut jclass,
 		) -> jvmtiError,
 	>,
 	pub GetClassLoaderClasses: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			initiating_loader: jobject,
 			class_count_ptr: *mut jint,
@@ -3501,58 +3501,58 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub PopFrame: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
 	>,
 	pub ForceEarlyReturnObject: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread, value: jobject) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread, value: jobject) -> jvmtiError,
 	>,
 	pub ForceEarlyReturnInt: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread, value: jint) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread, value: jint) -> jvmtiError,
 	>,
 	pub ForceEarlyReturnLong: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread, value: jlong) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread, value: jlong) -> jvmtiError,
 	>,
 	pub ForceEarlyReturnFloat: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread, value: jfloat) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread, value: jfloat) -> jvmtiError,
 	>,
 	pub ForceEarlyReturnDouble: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread, value: jdouble) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread, value: jdouble) -> jvmtiError,
 	>,
 	pub ForceEarlyReturnVoid: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, thread: jthread) -> jvmtiError,
 	>,
 	pub RedefineClasses: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			class_count: jint,
 			class_definitions: *const jvmtiClassDefinition,
 		) -> jvmtiError,
 	>,
 	pub GetVersionNumber: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, version_ptr: *mut jint) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, version_ptr: *mut jint) -> jvmtiError,
 	>,
 	pub GetCapabilities: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			capabilities_ptr: *mut jvmtiCapabilities,
 		) -> jvmtiError,
 	>,
 	pub GetSourceDebugExtension: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			source_debug_extension_ptr: *mut *mut ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub IsMethodObsolete: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			method: jmethodID,
 			is_obsolete_ptr: *mut jboolean,
 		) -> jvmtiError,
 	>,
 	pub SuspendThreadList: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			request_count: jint,
 			request_list: *const jthread,
@@ -3560,7 +3560,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub ResumeThreadList: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			request_count: jint,
 			request_list: *const jthread,
@@ -3568,10 +3568,10 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub AddModuleReads: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, module: jobject, to_module: jobject) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, module: jobject, to_module: jobject) -> jvmtiError,
 	>,
 	pub AddModuleExports: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			module: jobject,
 			pkg_name: *const ::std::os::raw::c_char,
@@ -3579,7 +3579,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub AddModuleOpens: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			module: jobject,
 			pkg_name: *const ::std::os::raw::c_char,
@@ -3587,10 +3587,10 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub AddModuleUses: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, module: jobject, service: jclass) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, module: jobject, service: jclass) -> jvmtiError,
 	>,
 	pub AddModuleProvides: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			module: jobject,
 			service: jclass,
@@ -3598,14 +3598,14 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IsModifiableModule: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			module: jobject,
 			is_modifiable_module_ptr: *mut jboolean,
 		) -> jvmtiError,
 	>,
 	pub GetAllStackTraces: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			max_frame_count: jint,
 			stack_info_ptr: *mut *mut jvmtiStackInfo,
@@ -3613,7 +3613,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetThreadListStackTraces: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread_count: jint,
 			thread_list: *const jthread,
@@ -3622,21 +3622,21 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetThreadLocalStorage: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			data_ptr: *mut *mut ::std::os::raw::c_void,
 		) -> jvmtiError,
 	>,
 	pub SetThreadLocalStorage: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			data: *const ::std::os::raw::c_void,
 		) -> jvmtiError,
 	>,
 	pub GetStackTrace: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			start_depth: jint,
@@ -3647,19 +3647,19 @@ pub struct jvmtiInterface_1_ {
 	>,
 	pub reserved105: *mut ::std::os::raw::c_void,
 	pub GetTag: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			object: jobject,
 			tag_ptr: *mut jlong,
 		) -> jvmtiError,
 	>,
 	pub SetTag: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, object: jobject, tag: jlong) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, object: jobject, tag: jlong) -> jvmtiError,
 	>,
 	pub ForceGarbageCollection:
-		::std::option::Option<unsafe extern "C" fn(env: *mut jvmtiEnv) -> jvmtiError>,
+		::std::option::Option<unsafe extern "system" fn(env: *mut jvmtiEnv) -> jvmtiError>,
 	pub IterateOverObjectsReachableFromObject: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			object: jobject,
 			object_reference_callback: jvmtiObjectReferenceCallback,
@@ -3667,7 +3667,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IterateOverReachableObjects: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			heap_root_callback: jvmtiHeapRootCallback,
 			stack_ref_callback: jvmtiStackReferenceCallback,
@@ -3676,7 +3676,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IterateOverHeap: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			object_filter: jvmtiHeapObjectFilter,
 			heap_object_callback: jvmtiHeapObjectCallback,
@@ -3684,7 +3684,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IterateOverInstancesOfClass: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			object_filter: jvmtiHeapObjectFilter,
@@ -3694,7 +3694,7 @@ pub struct jvmtiInterface_1_ {
 	>,
 	pub reserved113: *mut ::std::os::raw::c_void,
 	pub GetObjectsWithTags: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			tag_count: jint,
 			tags: *const jlong,
@@ -3704,7 +3704,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub FollowReferences: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			heap_filter: jint,
 			klass: jclass,
@@ -3714,7 +3714,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub IterateThroughHeap: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			heap_filter: jint,
 			klass: jclass,
@@ -3724,147 +3724,147 @@ pub struct jvmtiInterface_1_ {
 	>,
 	pub reserved117: *mut ::std::os::raw::c_void,
 	pub SuspendAllVirtualThreads: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			except_count: jint,
 			except_list: *const jthread,
 		) -> jvmtiError,
 	>,
 	pub ResumeAllVirtualThreads: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			except_count: jint,
 			except_list: *const jthread,
 		) -> jvmtiError,
 	>,
 	pub SetJNIFunctionTable: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			function_table: *const jniNativeInterface,
 		) -> jvmtiError,
 	>,
 	pub GetJNIFunctionTable: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			function_table: *mut *mut jniNativeInterface,
 		) -> jvmtiError,
 	>,
 	pub SetEventCallbacks: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			callbacks: *const jvmtiEventCallbacks,
 			size_of_callbacks: jint,
 		) -> jvmtiError,
 	>,
 	pub GenerateEvents: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, event_type: jvmtiEvent) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, event_type: jvmtiEvent) -> jvmtiError,
 	>,
 	pub GetExtensionFunctions: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			extension_count_ptr: *mut jint,
 			extensions: *mut *mut jvmtiExtensionFunctionInfo,
 		) -> jvmtiError,
 	>,
 	pub GetExtensionEvents: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			extension_count_ptr: *mut jint,
 			extensions: *mut *mut jvmtiExtensionEventInfo,
 		) -> jvmtiError,
 	>,
 	pub SetExtensionEventCallback: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			extension_event_index: jint,
 			callback: jvmtiExtensionEvent,
 		) -> jvmtiError,
 	>,
 	pub DisposeEnvironment:
-		::std::option::Option<unsafe extern "C" fn(env: *mut jvmtiEnv) -> jvmtiError>,
+		::std::option::Option<unsafe extern "system" fn(env: *mut jvmtiEnv) -> jvmtiError>,
 	pub GetErrorName: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			error: jvmtiError,
 			name_ptr: *mut *mut ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub GetJLocationFormat: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			format_ptr: *mut jvmtiJlocationFormat,
 		) -> jvmtiError,
 	>,
 	pub GetSystemProperties: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			count_ptr: *mut jint,
 			property_ptr: *mut *mut *mut ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub GetSystemProperty: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			property: *const ::std::os::raw::c_char,
 			value_ptr: *mut *mut ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub SetSystemProperty: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			property: *const ::std::os::raw::c_char,
 			value_ptr: *const ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub GetPhase: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, phase_ptr: *mut jvmtiPhase) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, phase_ptr: *mut jvmtiPhase) -> jvmtiError,
 	>,
 	pub GetCurrentThreadCpuTimerInfo: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, info_ptr: *mut jvmtiTimerInfo) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, info_ptr: *mut jvmtiTimerInfo) -> jvmtiError,
 	>,
 	pub GetCurrentThreadCpuTime: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, nanos_ptr: *mut jlong) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, nanos_ptr: *mut jlong) -> jvmtiError,
 	>,
 	pub GetThreadCpuTimerInfo: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, info_ptr: *mut jvmtiTimerInfo) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, info_ptr: *mut jvmtiTimerInfo) -> jvmtiError,
 	>,
 	pub GetThreadCpuTime: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			nanos_ptr: *mut jlong,
 		) -> jvmtiError,
 	>,
 	pub GetTimerInfo: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, info_ptr: *mut jvmtiTimerInfo) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, info_ptr: *mut jvmtiTimerInfo) -> jvmtiError,
 	>,
 	pub GetTime: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, nanos_ptr: *mut jlong) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, nanos_ptr: *mut jlong) -> jvmtiError,
 	>,
 	pub GetPotentialCapabilities: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			capabilities_ptr: *mut jvmtiCapabilities,
 		) -> jvmtiError,
 	>,
 	pub reserved141: *mut ::std::os::raw::c_void,
 	pub AddCapabilities: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			capabilities_ptr: *const jvmtiCapabilities,
 		) -> jvmtiError,
 	>,
 	pub RelinquishCapabilities: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			capabilities_ptr: *const jvmtiCapabilities,
 		) -> jvmtiError,
 	>,
 	pub GetAvailableProcessors: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, processor_count_ptr: *mut jint) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, processor_count_ptr: *mut jint) -> jvmtiError,
 	>,
 	pub GetClassVersionNumbers: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			minor_version_ptr: *mut jint,
@@ -3872,7 +3872,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetConstantPool: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			klass: jclass,
 			constant_pool_count_ptr: *mut jint,
@@ -3881,42 +3881,42 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetEnvironmentLocalStorage: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			data_ptr: *mut *mut ::std::os::raw::c_void,
 		) -> jvmtiError,
 	>,
 	pub SetEnvironmentLocalStorage: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, data: *const ::std::os::raw::c_void) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, data: *const ::std::os::raw::c_void) -> jvmtiError,
 	>,
 	pub AddToBootstrapClassLoaderSearch: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			segment: *const ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub SetVerboseFlag: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			flag: jvmtiVerboseFlag,
 			value: jboolean,
 		) -> jvmtiError,
 	>,
 	pub AddToSystemClassLoaderSearch: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			segment: *const ::std::os::raw::c_char,
 		) -> jvmtiError,
 	>,
 	pub RetransformClasses: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			class_count: jint,
 			classes: *const jclass,
 		) -> jvmtiError,
 	>,
 	pub GetOwnedMonitorStackDepthInfo: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			monitor_info_count_ptr: *mut jint,
@@ -3924,14 +3924,14 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub GetObjectSize: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			object: jobject,
 			size_ptr: *mut jlong,
 		) -> jvmtiError,
 	>,
 	pub GetLocalInstance: ::std::option::Option<
-		unsafe extern "C" fn(
+		unsafe extern "system" fn(
 			env: *mut jvmtiEnv,
 			thread: jthread,
 			depth: jint,
@@ -3939,7 +3939,7 @@ pub struct jvmtiInterface_1_ {
 		) -> jvmtiError,
 	>,
 	pub SetHeapSamplingInterval: ::std::option::Option<
-		unsafe extern "C" fn(env: *mut jvmtiEnv, sampling_interval: jint) -> jvmtiError,
+		unsafe extern "system" fn(env: *mut jvmtiEnv, sampling_interval: jint) -> jvmtiError,
 	>,
 }
 pub type jvmtiInterface_1 = jvmtiInterface_1_;
